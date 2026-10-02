@@ -22,11 +22,14 @@ https://github.com/Manoj111846/LifeOS-AI
 
 ## 📸 Screenshots
 
-### Landing Page
-[🔗 View LifeOS AI Landing Page Screenshot](screenshots/landing-page.png)
+### 🏠 Landing Page
 
-### Personal Dashboard
-[🔗 View LifeOS AI Dashboard Screenshot](screenshots/dashboard.png)
+![LifeOS AI Landing Page](landing-page.png)
+
+### 📊 Personal Dashboard
+
+![LifeOS AI Dashboard](dashboard.png)
+
 The dashboard brings together goals, projects, pending tasks, documents, priorities, and the user's current context in one view.
 
 ---
