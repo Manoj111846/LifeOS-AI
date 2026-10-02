@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}LifeOS AI — Personal Intelligence{% endblock %}
+{% block public_content %}
+<div class="landing">
+  <div class="landing-card">
+    <div class="logo-mark">🧠</div>
+    <div class="eyebrow">PERSONAL INTELLIGENCE SYSTEM</div>
+    <h1>LifeOS <span>AI</span></h1>
+    <p class="hero-text">Your information has connections. We make them actionable.</p>
+    <p>Connect goals, projects, tasks, deadlines and documents into one contextual workspace.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="{{ url_for('register') }}">Create your LifeOS</a>
+      <a class="btn ghost" href="{{ url_for('login') }}">Sign in</a>
+    </div>
+    <div class="feature-row">
+      <div>🧠 Knowledge Graph</div><div>🎯 Smart Planning</div><div>🔮 Scenarios</div>
+    </div>
+  </div>
+</div>
+{% endblock %}

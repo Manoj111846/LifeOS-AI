@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Goals — LifeOS AI{% endblock %}
+{% block heading %}Goals{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="panel-head"><h3>Create a goal</h3></div>
+  <form class="form-grid" method="post">
+    <input name="title" placeholder="Goal title" required>
+    <input name="deadline" type="date">
+    <select name="priority"><option>High</option><option selected>Medium</option><option>Low</option></select>
+    <input name="description" placeholder="Description">
+    <button class="btn primary">Add Goal</button>
+  </form>
+</section>
+<section class="cards">
+{% for g in goals %}
+<div class="card"><span class="badge {{ g['priority']|lower }}">{{ g['priority'] }}</span><h3>{{ g['title'] }}</h3><p>{{ g['description'] or 'No description' }}</p><small>Deadline: {{ g['deadline'] or 'Not set' }}</small></div>
+{% else %}<div class="empty">Create your first goal.</div>{% endfor %}
+</section>
+{% endblock %}

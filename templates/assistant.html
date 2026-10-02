@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}AI Assistant — LifeOS AI{% endblock %}
+{% block heading %}AI Assistant{% endblock %}
+{% block content %}
+<div class="assistant-wrap">
+  <section class="panel">
+    <div class="eyebrow">CONTEXT-AWARE ASSISTANT</div>
+    <h2>Ask LifeOS what matters next.</h2>
+    <p>Ask about priorities, goals, pending work or task dependencies.</p>
+    <form method="post">
+      <textarea name="question" placeholder="What should I work on today?">{{ request.form.get('question','') }}</textarea>
+      <button class="btn primary">Ask LifeOS ✦</button>
+    </form>
+  </section>
+  {% if answer %}
+  <section class="panel answer"><div class="eyebrow">LIFEOS RESPONSE</div><div class="answer-text">{{ answer|safe }}</div></section>
+  {% endif %}
+</div>
+{% endblock %}

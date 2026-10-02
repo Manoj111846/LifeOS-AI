@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+lifeos.db
+uploads/*
+!uploads/.gitkeep
+.DS_Store

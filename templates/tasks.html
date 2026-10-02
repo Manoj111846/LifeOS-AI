@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Tasks — LifeOS AI{% endblock %}
+{% block heading %}Tasks{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="panel-head"><h3>Create a task</h3></div>
+  <form class="form-grid" method="post">
+    <input name="title" placeholder="Task title" required>
+    <select name="project_id"><option value="">No project</option>{% for p in projects %}<option value="{{ p['id'] }}">{{ p['name'] }}</option>{% endfor %}</select>
+    <input name="deadline" type="date">
+    <select name="priority"><option>High</option><option selected>Medium</option><option>Low</option></select>
+    <input name="description" placeholder="Description">
+    <button class="btn primary">Add Task</button>
+  </form>
+</section>
+<section class="panel">
+{% for t in tasks %}
+<div class="task-row">
+  <div><strong>{{ t['title'] }}</strong><small>{{ t['project_name'] or 'No project' }} · Deadline: {{ t['deadline'] or 'None' }}</small></div>
+  <span class="badge {{ t['priority']|lower }}">{{ t['priority'] }}</span>
+  {% if t['status'] != 'Completed' %}<form method="post" action="{{ url_for('complete_task', task_id=t['id']) }}"><button class="btn small-btn">Complete</button></form>{% else %}<span class="completed">✓ Completed</span>{% endif %}
+</div>
+{% else %}<div class="empty">No tasks yet.</div>{% endfor %}
+</section>
+{% endblock %}

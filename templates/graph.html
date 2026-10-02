@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Knowledge Graph — LifeOS AI{% endblock %}
+{% block heading %}Knowledge Graph{% endblock %}
+{% block content %}
+<section class="panel graph-panel">
+  <div class="panel-head"><h3>Your connected context</h3><span class="muted">Goals → Projects → Tasks → Dependencies</span></div>
+  <div id="graph"></div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script>
+const nodes = {{ nodes|tojson }};
+const links = {{ links|tojson }};
+const box = document.getElementById("graph");
+const width = box.clientWidth || 900, height = 560;
+const svg = d3.select("#graph").append("svg").attr("width","100%").attr("height",height).attr("viewBox",`0 0 ${width} ${height}`);
+const simulation = d3.forceSimulation(nodes)
+  .force("link", d3.forceLink(links).id(d=>d.id).distance(130))
+  .force("charge", d3.forceManyBody().strength(-420))
+  .force("center", d3.forceCenter(width/2,height/2));
+const link = svg.append("g").selectAll("line").data(links).join("line").attr("stroke","#334155").attr("stroke-width",2);
+const node = svg.append("g").selectAll("g").data(nodes).join("g").call(d3.drag()
+ .on("start",(e,d)=>{if(!e.active)simulation.alphaTarget(.3).restart();d.fx=d.x;d.fy=d.y;})
+ .on("drag",(e,d)=>{d.fx=e.x;d.fy=e.y;})
+ .on("end",(e,d)=>{if(!e.active)simulation.alphaTarget(0);d.fx=null;d.fy=null;}));
+node.append("circle").attr("r",18).attr("fill",d=>d.type==="goal"?"#8b5cf6":d.type==="project"?"#06b6d4":"#22c55e");
+node.append("text").attr("x",24).attr("y",5).text(d=>d.label).attr("fill","#e5e7eb").attr("font-size","12");
+simulation.on("tick",()=>{link.attr("x1",d=>d.source.x).attr("y1",d=>d.source.y).attr("x2",d=>d.target.x).attr("y2",d=>d.target.y);node.attr("transform",d=>`translate(${d.x},${d.y})`);});
+</script>
+{% endblock %}

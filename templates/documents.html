@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Documents — LifeOS AI{% endblock %}
+{% block heading %}Documents{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="panel-head"><h3>Add context</h3></div>
+  <p>Upload notes or project files. Text/Markdown/CSV content is stored as searchable context in this MVP.</p>
+  <form method="post" enctype="multipart/form-data" class="upload-form"><input type="file" name="file" required><button class="btn primary">Upload</button></form>
+</section>
+<section class="cards">
+{% for d in documents %}
+<div class="card"><h3>📄 {{ d['filename'] }}</h3><small>Uploaded {{ d['uploaded_at'] }}</small><p>{{ (d['content'] or 'File stored. Content extraction for this file type can be added next.')[:180] }}</p></div>
+{% else %}<div class="empty">No documents uploaded.</div>{% endfor %}
+</section>
+{% endblock %}

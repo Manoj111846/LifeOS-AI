@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Scenario Simulator — LifeOS AI{% endblock %}
+{% block heading %}Scenario Simulator{% endblock %}
+{% block content %}
+<section class="panel">
+  <div class="eyebrow">WHAT-IF ANALYSIS</div>
+  <h2>Explore the impact of delaying a task.</h2>
+  <form class="form-grid" method="post">
+    <select name="task_id" required><option value="">Choose a task</option>{% for t in tasks %}<option value="{{ t['id'] }}">{{ t['title'] }}</option>{% endfor %}</select>
+    <input type="number" name="days" value="2" min="1" max="30">
+    <button class="btn primary">Simulate</button>
+  </form>
+</section>
+{% if result %}
+<section class="panel">
+  <h3>If “{{ result.task['title'] }}” is postponed by {{ result.days }} day(s)</h3>
+  {% if result.affected %}
+  <p>Explicit downstream dependencies that may be affected:</p>
+  {% for t in result.affected %}<div class="list-row"><strong>{{ t['title'] }}</strong><span class="badge">{{ t['priority'] }}</span></div>{% endfor %}
+  {% else %}
+  <div class="empty">No explicit downstream dependencies were found. Add task dependencies to make scenario analysis richer.</div>
+  {% endif %}
+</section>
+{% endif %}
+{% endblock %}

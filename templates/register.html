@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Register — LifeOS AI{% endblock %}
+{% block public_content %}
+<div class="auth-page">
+  <div class="auth-card">
+    <a class="brand centered" href="{{ url_for('index') }}">🧠 LifeOS <b>AI</b></a>
+    <h2>Create your LifeOS</h2>
+    <p>Start connecting your goals, projects and tasks.</p>
+    <form method="post">
+      <label>Name</label><input name="name" required>
+      <label>Email</label><input name="email" type="email" required>
+      <label>Password</label><input name="password" type="password" minlength="6" required>
+      <button class="btn primary full">Create account</button>
+    </form>
+    <p class="small">Already registered? <a href="{{ url_for('login') }}">Sign in</a></p>
+  </div>
+</div>
+{% endblock %}

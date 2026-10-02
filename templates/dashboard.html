@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — LifeOS AI{% endblock %}
+{% block heading %}Good to see you, {{ user['name'] }}{% endblock %}
+{% block content %}
+<div class="hero-banner">
+  <div><div class="eyebrow">TODAY'S CONTEXT</div><h2>Turn scattered information into your next action.</h2><p>LifeOS connects what matters so you can focus on what moves your goals forward.</p></div>
+  <a class="btn primary" href="{{ url_for('assistant') }}">Ask LifeOS ✦</a>
+</div>
+
+<div class="stats">
+  <div class="stat"><span>Goals</span><strong>{{ counts.goals }}</strong></div>
+  <div class="stat"><span>Projects</span><strong>{{ counts.projects }}</strong></div>
+  <div class="stat"><span>Pending Tasks</span><strong>{{ counts.pending }}</strong></div>
+  <div class="stat"><span>Documents</span><strong>{{ counts.documents }}</strong></div>
+</div>
+
+<div class="grid-2">
+  <section class="panel">
+    <div class="panel-head"><h3>Priority Tasks</h3><a href="{{ url_for('tasks') }}">View all →</a></div>
+    {% for t in tasks %}
+    <div class="list-row">
+      <div><strong>{{ t['title'] }}</strong><small>{{ t['project_name'] or 'No project' }} · {{ t['deadline'] or 'No deadline' }}</small></div>
+      <span class="badge {{ t['priority']|lower }}">{{ t['priority'] }}</span>
+    </div>
+    {% else %}<div class="empty">No tasks yet.</div>{% endfor %}
+  </section>
+  <section class="panel">
+    <div class="panel-head"><h3>Active Projects</h3><a href="{{ url_for('projects') }}">View all →</a></div>
+    {% for p in projects %}
+    <div class="list-row"><div><strong>{{ p['name'] }}</strong><small>{{ p['description'] or 'No description' }}</small></div><span class="badge">{{ p['status'] }}</span></div>
+    {% else %}<div class="empty">No projects yet.</div>{% endfor %}
+  </section>
+</div>
+
+<section class="panel">
+  <div class="panel-head"><h3>How LifeOS thinks about context</h3></div>
+  <div class="flow"><div>Goal</div><span>→</span><div>Project</div><span>→</span><div>Task</div><span>→</span><div>Deadline</div><span>→</span><div class="accent-box">Action</div></div>
+</section>
+{% endblock %}
